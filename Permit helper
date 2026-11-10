@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Permit Prep — California</title>
+  <style>
+    :root {
+      --ink: #17241f;
+      --muted: #68766f;
+      --green: #145c45;
+      --green-light: #e9f3ed;
+      --cream: #f8f7f2;
+      --white: #fff;
+      --line: #e5e9e3;
+      --gold: #e6b84a;
+      --red: #a94336;
+      --shadow: 0 16px 45px rgba(28, 53, 42, .08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    button { font: inherit; cursor: pointer; }
+    .shell { width: min(1100px, calc(100% - 40px)); margin: auto; }
+    header {
+      height: 76px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -.04em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; color: white; background: var(--green); }
+    .brand span:last-child { color: var(--green); }
+    .header-note { color: var(--muted); font-size: 13px; }
+    main { padding: 54px 0 70px; }
+    .hero { display: grid; grid-template-columns: 1.35fr .65fr; gap: 36px; align-items: center; margin-bottom: 36px; }
+    .eyebrow { color: var(--green); font-size: 12px; text-transform: uppercase; letter-spacing: .13em; font-weight: 800; }
+    h1 { font-size: clamp(38px, 6vw, 64px); line-height: 1.02; letter-spacing: -.055em; margin: 12px 0 18px; }
+    .hero p { color: var(--muted); font-size: 17px; line-height: 1.65; max-width: 610px; margin: 0; }
+    .hero-card { padding: 23px; background: var(--green); color: white; border-radius: 22px; box-shadow: var(--shadow); }
+    .hero-card .big { font-size: 34px; font-weight: 800; letter-spacing: -.05em; }
+    .hero-card p { color: #d5e8dc; font-size: 14px; line-height: 1.5; margin: 7px 0 0; }
+    .tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+    .tab { border: 0; background: transparent; color: var(--muted); padding: 13px 17px; font-weight: 700; border-bottom: 3px solid transparent; }
+    .tab.active { color: var(--green); border-color: var(--green); }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .layout { display: grid; grid-template-columns: 1fr 280px; gap: 22px; align-items: start; }
+    .card { background: var(--white); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 25px; }
+    .card h2 { margin: 0 0 7px; letter-spacing: -.03em; font-size: 22px; }
+    .sub { color: var(--muted); font-size: 14px; margin: 0 0 22px; line-height: 1.5; }
+    .progress-head { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; margin-bottom: 9px; }
+    .track { height: 8px; background: #edf0ec; overflow: hidden; border-radius: 99px; margin-bottom: 23px; }
+    .fill { height: 100%; width: 0; background: var(--green); transition: width .25s; }
+    .question { font-size: 21px; line-height: 1.4; font-weight: 750; margin: 0 0 18px; }
+    .answers { display: grid; gap: 10px; }
+    .answer {
+      width: 100%; text-align: left; padding: 14px 16px; border: 1px solid var(--line);
+      border-radius: 12px; background: white; color: var(--ink); transition: .15s;
+    }
+    .answer:hover:not(:disabled) { border-color: var(--green); background: #f6faf7; }
+    .answer.correct { border-color: #58a27c; background: #edf7f0; }
+    .answer.wrong { border-color: #d78b80; background: #fff2f0; }
+    .answer:disabled { cursor: default; }
+    .feedback { display: none; margin-top: 16px; border-radius: 12px; padding: 14px 16px; font-size: 14px; line-height: 1.55; }
+    .feedback.show { display: block; }
+    .feedback.good { background: #edf7f0; color: #205b3f; }
+    .feedback.bad { background: #fff2f0; color: #80352c; }
+    .actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 20px; }
+    .btn { border: 0; border-radius: 11px; padding: 12px 17px; font-weight: 750; }
+    .btn-primary { color: white; background: var(--green); }
+    .btn-primary:hover { background: #0f4937; }
+    .btn-secondary { color: var(--green); background: var(--green-light); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .side h3 { font-size: 14px; margin: 0 0 14px; }
+    .stat { display: flex; justify-content: space-between; padding: 13px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+    .stat strong { color: var(--ink); }
+    .tip { margin-top: 17px; padding: 16px; background: #fff8e7; border-radius: 13px; font-size: 13px; line-height: 1.55; color: #69572c; }
+    .flashcard { min-height: 255px; display: grid; place-items: center; text-align: center; padding: 32px; border-radius: 16px; background: var(--green-light); cursor: pointer; }
+    .flashcard small { display: block; color: var(--green); text-transform: uppercase; letter-spacing: .12em; font-weight: 800; margin-bottom: 12px; }
+    .flashcard p { font-size: 23px; line-height: 1.4; font-weight: 750; margin: 0; }
+    .flash-actions { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+    .source { color: var(--muted); font-size: 12px; line-height: 1.6; margin-top: 28px; }
+    .source a { color: var(--green); }
+    .result { text-align: center; padding: 24px 8px; }
+    .result .score { font-size: 56px; font-weight: 850; letter-spacing: -.06em; color: var(--green); }
+    @media (max-width: 760px) {
+      .hero, .layout { grid-template-columns: 1fr; }
+      .hero { gap: 20px; margin-bottom: 28px; }
+      main { padding-top: 36px; }
+      .hero-card { padding: 18px; }
+      .side { order: -1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><span class="brand-mark">P</span><span>permit<span>prep</span></span></div>
+      <div class="header-note">California · Class C study</div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Your road to the permit starts here</div>
+          <h1>Study smart.<br>Drive ready.</h1>
+          <p>Build confidence with quick practice questions and flashcards covering common California road rules. Learn a little, then come back tomorrow.</p>
+        </div>
+        <div class="hero-card">
+          <div class="big" id="heroScore">0%</div>
+          <p>Your practice accuracy so far. Keep going—your progress is saved on this device.</p>
+        </div>
+      </section>
+
+      <nav class="tabs" aria-label="Study modes">
+        <button class="tab active" data-tab="quiz">Practice quiz</button>
+        <button class="tab" data-tab="cards">Flashcards</button>
+      </nav>
+
+      <section id="quiz" class="panel active">
+        <div class="layout">
+          <article class="card" id="quizCard"></article>
+          <aside class="card side">
+            <h3>Your study stats</h3>
+            <div class="stat"><span>Answered</span><strong id="answered">0</strong></div>
+            <div class="stat"><span>Correct</span><strong id="correctCount">0</strong></div>
+            <div class="stat"><span>Accuracy</span><strong id="accuracy">0%</strong></div>
+            <div class="tip"><strong>Study tip</strong><br>Read the explanation after each question. Understanding why an answer is right helps you remember the rule.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="cards" class="panel">
+        <div class="layout">
+          <article class="card">
+            <h2>Quick-review flashcards</h2>
+            <p class="sub">Tap the card to reveal the answer, then move through the deck.</p>
+            <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="Reveal flashcard answer">
+              <div><small id="cardLabel">Question · 1 of 6</small><p id="cardText"></p></div>
+            </div>
+            <div class="flash-actions">
+              <button class="btn btn-secondary" id="prevCard">← Previous</button>
+              <button class="btn btn-primary" id="nextCard">Next →</button>
+            </div>
+          </article>
+          <aside class="card side">
+            <h3>Make it stick</h3>
+            <p class="sub">Try to answer each card before flipping it. Revisit the ones that take longer to recall.</p>
+            <div class="tip">For authoritative details, check the current California Driver’s Handbook and official DMV sample tests.</div>
+          </aside>
+        </div>
+      </section>
+
+      <p class="source">
+        This independent study tool is not affiliated with the California DMV, and its practice questions are not official test questions.
+        Check the <a href="https://www.dmv.ca.gov/portal/handbook/california-driver-handbook/" target="_blank" rel="noreferrer">California Driver’s Handbook</a>
+        and <a href="https://www.dmv.ca.gov/portal/driver-education-and-safety/educational-materials/sample-driver-license-dl-knowledge-tests/" target="_blank" rel="noreferrer">official DMV sample tests</a>
+        for current information.
+      </p>
+    </main>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "When approaching a steady red traffic light, you must:",
+        choices: ["Slow down and proceed if the road is clear", "Stop before the limit line or crosswalk", "Stop only if another vehicle is present"],
+        answer: 1,
+        why: "A steady red signal means stop. Stop at the limit line, before the crosswalk, or before entering the intersection."
+      },
+      {
+        q: "Before changing lanes, you should:",
+        choices: ["Signal, check mirrors, and look over your shoulder", "Signal only if another car is nearby", "Brake sharply to alert drivers behind you"],
+        answer: 0,
+        why: "Signal your intention, check traffic and blind spots, and move only when the lane is clear."
+      },
+      {
+        q: "A pedestrian is crossing at a marked or unmarked crosswalk. You should:",
+        choices: ["Yield and let the pedestrian cross safely", "Honk so they hurry up", "Drive around them if there is room"],
+        answer: 0,
+        why: "Drivers must yield to pedestrians in crosswalks and take care to avoid putting them in danger."
+      },
+      {
+        q: "When an emergency vehicle approaches with its siren and lights on, you should generally:",
+        choices: ["Stop immediately in your lane", "Move to the right edge and stop when safe", "Speed up to stay ahead of it"],
+        answer: 1,
+        why: "Yield to the emergency vehicle. Move to the right edge of the road and stop when it is safe to do so."
+      },
+      {
+        q: "At a stop sign, where should you stop?",
+        choices: ["At the limit line, or before the crosswalk or intersection", "Next to the vehicle in front of you", "Only if you see cross traffic"],
+        answer: 0,
+        why: "Come to a complete stop at the limit line. If there is no line, stop before the crosswalk or intersection."
+      },
+      {
+        q: "When driving in fog, which lights should you use?",
+        choices: ["High-beam headlights", "Low-beam headlights", "Parking lights only"],
+        answer: 1,
+        why: "Use low-beam headlights in fog. High beams can reflect off the fog and make it harder to see."
+      },
+      {
+        q: "A yellow traffic signal means:",
+        choices: ["The signal is about to turn red; stop if you can do so safely", "You have the right-of-way to speed through", "The intersection is closed"],
+        answer: 0,
+        why: "A steady yellow light warns that the signal is changing to red. Stop if you can do so safely."
+      },
+      {
+        q: "When parking downhill next to a curb, turn your front wheels:",
+        choices: ["Toward the curb", "Away from the curb", "Straight ahead"],
+        answer: 0,
+        why: "When parked downhill with a curb, turn the front wheels toward the curb so the vehicle would roll toward it."
+      }
+    ];
+
+    const cards = [
+      ["What does a red octagonal sign mean?", "Stop completely. Check for traffic and pedestrians before proceeding when safe."],
+      ["What should you do before changing lanes?", "Signal, check mirrors, look over your shoulder for blind spots, and move only when clear."],
+      ["What do low-beam headlights help with in fog?", "They reduce glare reflected back by fog, helping you see better."],
+      ["What is a blind spot?", "An area around your vehicle that you cannot see clearly in your mirrors."],
+      ["What should you do when an emergency vehicle approaches with lights and siren?", "Yield; move to the right edge and stop when safe."],
+      ["When parked downhill next to a curb, which way do the wheels turn?", "Toward the curb."]
+    ];
+
+    let index = 0, selected = false;
+    let total = Number(localStorage.getItem("permitAnswered") || 0);
+    let correct = Number(localStorage.getItem("permitCorrect") || 0);
+    let cardIndex = 0, showingAnswer = false;
+
+    function updateStats() {
+      const pct = total ? Math.round(correct / total * 100) : 0;
+      document.getElementById("answered").textContent = total;
+      document.getElementById("correctCount").textContent = correct;
+      document.getElementById("accuracy").textContent = pct + "%";
+      document.getElementById("heroScore").textContent = pct + "%";
+    }
+
+    function renderQuestion() {
+      const box = document.getElementById("quizCard");
+      if (index >= questions.length) {
+        const pct = Math.round(correct / Math.max(total, 1) * 100);
+        box.innerHTML = `<div class="result"><div class="eyebrow">Practice round complete</div><div class="score">${pct}%</div><h2>Nice work showing up.</h2><p class="sub">Try another round to keep strengthening your recall.</p><button class="btn btn-primary" id="restart">Start again</button></div>`;
+        document.getElementById("restart").onclick = () => { index = 0; renderQuestion(); };
+        return;
+      }
+      const item = questions[index];
+      box.innerHTML = `
+        <div class="progress-head"><span>Question ${index + 1} of ${questions.length}</span><span>${Math.round(index / questions.length * 100)}% complete</span></div>
+        <div class="track"><div class="fill" style="width:${index / questions.length * 100}%"></div></div>
+        <p class="question">${item.q}</p>
+        <div class="answers">${item.choices.map((choice, i) => `<button class="answer" data-answer="${i}">${String.fromCharCode(65+i)}. ${choice}</button>`).join("")}</div>
+        <div class="feedback" id="feedback"></div>
+        <div class="actions"><span class="sub" style="margin:0">Choose the best answer.</span><button class="btn btn-primary" id="continue" disabled>Next question →</button></div>`;
+      selected = false;
+      box.querySelectorAll(".answer").forEach(btn => btn.addEventListener("click", () => choose(Number(btn.dataset.answer))));
+      document.getElementById("continue").onclick = () => { index++; renderQuestion(); };
+    }
+
+    function choose(choice) {
+      if (selected) return;
+      selected = true;
+      const item = questions[index], good = choice === item.answer;
+      total++; if (good) correct++;
+      localStorage.setItem("permitAnswered", total);
+      localStorage.setItem("permitCorrect", correct);
+      updateStats();
+      document.querySelectorAll(".answer").forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === item.answer) btn.classList.add("correct");
+        else if (i === choice) btn.classList.add("wrong");
+      });
+      const feedback = document.getElementById("feedback");
+      feedback.className = "feedback show " + (good ? "good" : "bad");
+      feedback.innerHTML = `<strong>${good ? "That’s right!" : "Not quite."}</strong> ${item.why}`;
+      document.getElementById("continue").disabled = false;
+    }
+
+    function renderFlashcard() {
+      document.getElementById("cardLabel").textContent = (showingAnswer ? "Answer" : "Question") + ` · ${cardIndex + 1} of ${cards.length}`;
+      document.getElementById("cardText").textContent = cards[cardIndex][showingAnswer ? 1 : 0];
+      document.getElementById("prevCard").disabled = cardIndex === 0;
+      document.getElementById("nextCard").textContent = cardIndex === cards.length - 1 ? "Start over ↻" : "Next →";
+    }
+
+    document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById(tab.dataset.tab).classList.add("active");
+    }));
+
+    document.getElementById("flashcard").addEventListener("click", () => { showingAnswer = !showingAnswer; renderFlashcard(); });
+    document.getElementById("flashcard").addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showingAnswer = !showingAnswer; renderFlashcard(); }
+    });
+    document.getElementById("prevCard").onclick = () => { cardIndex--; showingAnswer = false; renderFlashcard(); };
+    document.getElementById("nextCard").onclick = () => { cardIndex = (cardIndex + 1) % cards.length; showingAnswer = false; renderFlashcard(); };
+
+    updateStats();
+    renderQuestion();
+    renderFlashcard();
+  </script>
+</body>
+</html>
